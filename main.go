@@ -5,27 +5,28 @@ import (
 	"net/http"
 	"sync"
 )
-var wg sync.WaitGroup //pointer
-func Greeter(s string){
-	defer wg.Done()
+
+var wg sync.WaitGroup //waitgroups are pointers
+func Greeter(s string) {
+	defer wg.Done() //decrese the counter by one also indicates that the goroutine has fone his work
 	result, err := http.Get(s)
-	if err!=nil{
+	if err != nil {
 		fmt.Println("this is not somthing i want change it")
-	}else{
+	} else {
 		fmt.Println("Hell yeah...status code is", result.StatusCode, s)
 	}
-	
+
 }
-func main(){
-	sites:=[]string{
+func main() {
+	sites := []string{
 		"https://github.com",
 		"https://linkedin.com",
 		"https://google.com",
 		"https://apple.com",
 	}
-	for _, i:= range sites{
+	for _, i := range sites {
 		go Greeter(i)
-		wg.Add(1)
+		wg.Add(1)//increment the count by n=1, indicates that there is one more goroutine waiting
 	}
-wg.Wait()
+	wg.Wait()//blocks the main method until the waitgrp reaches zero
 }
