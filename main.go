@@ -7,7 +7,7 @@ import (
 	"time"
 )
 var signals =[]string{"test"}
-
+var mut sync.Mutex
 var wg sync.WaitGroup
 
 func Greeter(s string) {
@@ -16,7 +16,9 @@ func Greeter(s string) {
 	if err != nil {
 		fmt.Println("this is not something I want, change it")
 	} else {
+		mut.Lock()
 		signals=append(signals, s)
+		mut.Unlock()
 		fmt.Println("Hell yeah... status code is", result.StatusCode, s)
 	}
 }
