@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 )
+var signals =[]string{"test"}
 
 var wg sync.WaitGroup
 
@@ -15,6 +16,7 @@ func Greeter(s string) {
 	if err != nil {
 		fmt.Println("this is not something I want, change it")
 	} else {
+		signals=append(signals, s)
 		fmt.Println("Hell yeah... status code is", result.StatusCode, s)
 	}
 }
@@ -34,4 +36,5 @@ func main() {
 	wg.Wait() // Blocks the main method until the waitgroup counter reaches zero
 	timeElapsed := time.Since(start)
 	fmt.Println("This for loop took this much time with goroutines:", timeElapsed)
+	fmt.Println(signals)
 }
