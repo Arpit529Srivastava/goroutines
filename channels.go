@@ -34,3 +34,5 @@ func main() {
 
 	wg.Wait()
 }
+//finally end of the videos lectures
+//now start building projects
